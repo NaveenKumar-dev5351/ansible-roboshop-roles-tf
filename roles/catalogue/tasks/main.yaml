@@ -19,7 +19,7 @@
     state: present
 
 - name: Check if 'catalogue' DB is already loaded
-  ansible.builtin.command: mongosh --host mongodb.devops84.store --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+  ansible.builtin.command: mongosh --host {{ MONGODB_HOST }} --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
   register: catalogue_output
 
 - name: Show DB check result
@@ -27,7 +27,7 @@
     var: catalogue_output.stdout_lines[-1]
 
 - name: Load product data (only if DB doesn't exist or force_load is set)
-  ansible.builtin.shell: mongosh --host mongodb.devops84.store < /app/db/master-data.js
+  ansible.builtin.shell: mongosh --host {{ MONGODB_HOST }} < /app/db/master-data.js
   when: force_load | default(false) or (catalogue_output.stdout_lines[-1] | int < 0)
 
 - name: Systemd setup
