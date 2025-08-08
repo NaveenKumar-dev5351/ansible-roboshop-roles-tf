@@ -1,0 +1,43 @@
+- name: App setup
+  include_role:
+    name: common
+    tasks_from: app-setup
+
+- name: NodeJS setup
+  include_role:
+    name: common
+    tasks_from: nodejs
+
+- name: Copy MongoDB repo
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: Install MongoDB client
+  ansible.builtin.dnf:
+    name: mongodb-mongosh
+    state: present
+
+- name: Check if 'catalogue' DB is already loaded
+  ansible.builtin.command: mongosh --host mongodb.devops84.store --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+  register: catalogue_output
+
+- name: Show DB check result
+  debug:
+    var: catalogue_output.stdout_lines[-1]
+
+- name: Load product data (only if DB doesn't exist or force_load is set)
+  ansible.builtin.shell: mongosh --host mongodb.devops84.store < /app/db/master-data.js
+  when: force_load | default(false) or (catalogue_output.stdout_lines[-1] | int < 0)
+
+- name: Systemd setup
+  include_role:
+    name: common
+    tasks_from: systemd.yaml
+
+# - name: deployment
+#   tags:
+#   - deployment
+#   import_role:
+#     name: common
+#     tasks_from: deployment

@@ -1,0 +1,5 @@
+CART_HOST: cart.devops84.store
+USER_HOST: user.devops84.store
+RABBITMQ_HOST: rabbitmq.devops84.store
+RABBITMQ_USER: roboshop
+RABBITMQ_PASSWORD: roboshop123
