@@ -1,4 +1,4 @@
-MYSQL_HOST: mysql.devops84.store
+MYSQL_HOST: mysql-{{ env }}.devops84.store
 MYSQL_ROOT_USER: root
 MYSQL_ROOT_PASSWORD: RoboShop@1
-CART_HOST: cart.devops84.store
+CART_HOST: cart.backend-{{ env }}.devops84.store

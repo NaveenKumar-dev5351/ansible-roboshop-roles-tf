@@ -1,5 +1,5 @@
-CATALOGUE_HOST: catalogue.devops84.store
-USER_HOST: user.devops84.store
-CART_HOST: cart.devops84.store
-SHIPPING_HOST: shipping.devops84.store
-PAYMENT_HOST: payment.devops84.store
+CATALOGUE_HOST: catalogue-backend.{{ env }}.devops84.store
+USER_HOST: user-backend.{{ env }}.devops84.store
+CART_HOST: cart-backend.{{ env }}.devops84.store
+SHIPPING_HOST: shipping-backend.{{ env }}.devops84.store
+PAYMENT_HOST: payment-backend.{{ env }}.devops84.store
