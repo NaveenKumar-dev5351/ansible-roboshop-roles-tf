@@ -1,1 +1,1 @@
-MONGODB_HOST: "mongodb.backend-{{ env }}.devops84.store" 
+MONGODB_HOST: "mongodb-{{ env }}.devops84.store" 
